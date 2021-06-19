@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content: ws:;">
+        -->
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/tailwindcss@1.9.6/dist/tailwind.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+        <title>ChatApp</title>
+    </head>
+    <body>
+        <div class="h-10 alert rounded shadow border-2 border-solid border-gray-300 bg-green-500" id="alert">
+            <span class="x" id="alert-x">X</span>
+            <span class="text-white my-1 mx-2 " id="alert-text"></span>
+        </div>
+        <div class="messagebox border-2 border-solid border-gray-300 shadow rounded-xl" id="box">
+            <div class="room-info">
+                <span id="title" class="w-full title"></span>
+                <br>
+                <hr class="shadow">
+                <span id="description" class="w-full description"></span>
+            </div>
+            <hr class="shadow">
+        </div>
+        </div>
+        <div class="box-2 border-2 border-gray-300 rounded h-64 w-64 shadow" id="box-2">
+            <span class="x" id="box-2-x">X</span>
+            <div class="login" id="login">
+                <label for="log-user">User:</label>
+                <br>
+                <input type="text" class="border-2 border-gray-300 rounded shadow" id="log-user">
+                <br>
+                <label>Password</label>
+                <br>
+                <input type="password" class="border-2 border-gray-300 rounded shadow" id="log-password">
+                <br>
+                <button class="bg-green-400 text-white px-2 my-2 rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-login-btn">Login!</button>
+                <br>
+                <span class="text-red-500 font-bold mx-1" id="status-login"></span>
+            </div>
+            <div id="settings">
+                <br>
+                <label for="settings-profile-image">Profile Image</label>
+                <br>
+                <input type="text" class="border-2 border-gray-300 rounded shadow" id="settings-profile-image" placeholder="Enter Image URL">
+                <br>
+                <button class="bg-green-400 text-white px-2 my-2 rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-profile-image">Submit URL</button>
+                <br>
+                <label for="settings-user-background-image">User Background</label>
+                <br>
+                <input type="text" class="border-2 border-gray-300 rounded shadow" id="settings-user-background-image" placeholder="Enter background URL">
+                <br>
+                <button class="bg-green-400 text-white px-2 my-2 rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-user-background-image">Submit Message Background</button>
+                <br>
+                <div class="ownerbuttons">
+                    <label for="roombg-input">Room Background</label>
+                    <br>
+                    <input type="text" class="border-2 border-gray-300 rounded shadow" id="roombg-input" placeholder="Enter Image URL">
+                    <br>
+                    <button class="bg-green-400 text-white px-2 my-2 rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-roombg">Submit Room Background URL</button>
+                    <br>
+                    <label for="room-title">Set Room Title (HTML Allowed)</label>
+                    <br>
+                    <input type="text" placeholder="Set Room Title (HTML Allowed)" id="room-title" class="border-2 border-gray-300 rounded shadow">
+                    <br>
+                    <button class="bg-green-400 text-white px-2 my-2 rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-room-title">Submit Room Title</button>
+                    <br>
+                    <label for="room-description">Set Description (HTML Allowed)</label>
+                    <br>
+                    <textarea cols="30" rows="10" id="room-description" placeholder="Set Room Description (HTML Allowed)" class="border-2 border-gray-300 rounded shadow"></textarea>
+                    <br>
+                    <button class="bg-green-400 text-white px-2 my-2 rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-room-description">Submit Room Description</button>
+                    <br>
+                    <label for="mod">Add/Remove Mod</label>
+                    <br>
+                    <input type="text" placeholder="Add/Remove Mod" class="border-2 border-gray-300 rounded shadow" id="mod">
+                    <br>
+                    <button class="bg-green-400 text-white px-2 my-2 rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-add-mod">Add Mod</button><button class="bg-green-400 text-white px-2 my-2 rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-remove-mod">Remove Mod</button>
+                </div>
+            </div>
+            <div id="register">
+                <br>
+                <label for="reg-email">Email</label>
+                <br>
+                <input class="border-2 border-gray-300 rounded shadow" type="email" id="reg-email">
+                <label for="reg-username" >Username</label>
+                <br>
+                <input type="text" class="border-2 border-gray-300 rounded shadow" id="reg-username">
+                <br>
+                <label for="reg-password" >Password</label>
+                <br>
+                <input type="password" class="border-2 border-gray-300 rounded shadow" id="reg-password">
+                <br>
+                <button class="bg-green-400 text-white px-2 my-2 rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-register-btn">Register!</button>
+                <br>
+                <span class="text-red-500 font-bold mx-1 my-2" id="status-register"></span>
+            </div>
+            <div class="join" id="join">
+                <br>
+                <label for="j-room">Join a room</label>
+                <br>
+                <input type="text" placeholder="Enter a room to join" class="border-2 border-gray-300 rounded shadow" id="j-room">
+                <br>
+                <button class="bg-green-400 text-white px-2 my-2  rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-join-btn">Join</button>
+                <br>
+                <span class="text-red-500 font-bold mx-1" id="status-join"></span>
+            </div>
+            <div class="create" id="create">
+                <br>
+                <label for="cr">Create a room</label>
+                <br>
+                <input type="text" class="border-2 border-gray-300 rounded shadow" id="cr">
+                <br>
+                <label for="cr-title">Title</label>
+                <br>
+                <input type="text" class="border-2 border-gray-300 rounded shadow" id="cr-title">
+                <br>
+                <label for="cr-description">Description</label>
+                <br>
+                <input type="text" class="border-2 border-gray-300 rounded shadow" id="cr-description">
+                <br>
+                <button class="bg-green-400 text-white px-2 my-2 rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-create-btn">Create room</button>
+                <br>
+                <span class="text-red-500 font-bold mx-1 my-2" id="status-create"></span>
+            </div>
+            <div id="forgot" class="forgot">
+                <br>
+                <label for="forgot-user">User</label>
+                <br>
+                <input type="email" class="border-2 border-gray-300 rounded shadow" id="forgot-user">
+                <br>
+                <label for="forgot-password">Email</label>
+                <br>
+                <input type="email" class="border-2 border-gray-300 rounded shadow" id="forgot-password">
+                <br>
+                <button class="bg-green-400 text-white px-2 my-2 rounded shadow py-1 border-2 border-green-200 hover:bg-green-500" id="submit-forgot-btn">Forgot Password Request</button>
+            </div>
+            <div id="ul"></div>
+            <div id="banlist"></div>
+        </div>
+        <div class="other">
+            <span class="button bg-green-400 px-1 text-sm text-white hover:bg-green-500 mx-1" id="log-btn">Login</span>
+            <span class="button bg-green-400 px-1 text-sm text-white hover:bg-green-500 mx-1" id="reg-btn">Register</span>
+            <span class="button bg-green-400 px-1 text-sm text-white hover:bg-green-500 mx-1" id="forgot-btn">Forgot Password</span>
+            <span class="button bg-green-400 px-1 text-sm text-white hover:bg-green-500 mx-1" id="join-btn">Join</span>
+            <span class="button bg-green-400 px-1 text-sm text-white hover:bg-green-500 float-right mx-3" id="userlist-btn">Users(<span class="text-bold color-green-500" id="count">0</span>)</span>
+            <span class="button bg-green-400 px-1 text-sm text-white hover:bg-green-500 mx-1" id="banlist-btn">Banlist</span>
+            <span class="button bg-green-400 px-1 text-sm text-white hover:bg-green-500 mx-1" id="create-room-btn">Create Room</span>
+            <span class="button bg-green-400 px-1 text-sm text-white hover:bg-green-500 mx-1" id="settings-btn">Settings</span>
+            <input class="send-input border-2 border-gray-300 rounded shadow" type="text" id="msg">
+        </div>
+        <script src="js/chat.js"></script>
+        <script src="cordova.js"></script>
+    </body>
+</html>
