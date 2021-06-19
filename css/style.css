@@ -1,0 +1,137 @@
+html {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+#banlist-btn, #join-btn, #create-room-btn, #userlist-btn {
+  display: none;
+}
+#settings-btn {
+    display: none;
+}
+.messagebox{
+    height: 85vh;
+    width: 98vw;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+.alert {
+    width: 98vw;
+    display: none;
+}
+.ob {
+	margin-right: 3px;
+}
+.send-input{
+    width: 95vw;
+    margin-top: 5px;
+}
+.message{
+    width: calc(100% - 20px);
+    height: 125px;
+    font-size: smaller;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    word-wrap: break-word;
+
+
+}
+.vist {
+    color: purple;
+
+}
+.profileimg{
+    height:25px;
+    width: 25px;
+}
+.user, .text {
+    margin: 4px;
+    background-color: white;
+}
+.time{
+    float: right;
+    font-size: 0.8em;
+    background-color: gray;
+    color: white;
+    margin-right: 2px;
+    margin-top: 2px;
+}
+.modbuttons {
+  display: none;
+  margin-top: 2px;
+  float: right;
+}
+.ownerbuttons {
+    display: none;
+}
+.message {
+    overflow: hidden;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+
+}
+.box-2 {
+    background-color: white;
+    overflow-y: scroll;
+}
+.message-delete-user, .message-ban, .message-delete {
+    float:right;
+    margin-top: 0px;
+    margin-right: 5px;
+    background-color: red;
+    padding-right: 3px;
+    padding-left: 3px;
+    color: white;
+    font-size: 0.8em;
+}
+.mod {
+    color: #83963c;
+}
+.ul {
+    margin: 5px;
+}
+.message-delete-user:hover, .message-ban:hover, .message-delete:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+.room-info{
+    height: 85px;
+    width: 98vw;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    font-size: small;
+}
+
+.box-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: none;
+}
+.x{
+    color: white;
+    background-color: red;
+    float: right;
+    margin: 0.3rem;
+    padding: 0.1rem;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    text-align: center;
+    width: 20%;
+
+}
+.x:hover{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+.button {
+    cursor: pointer;
+}
